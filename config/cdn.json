@@ -54,5 +54,9 @@
     "air-datepicker-i18n-chinese": {
         "local": "_libs/air-datepicker/js/i18n/datepicker.zh.js",
         "cdn": "https://cdn.bootcss.com/air-datepicker/2.2.3/js/i18n/datepicker.zh.js"
+    },
+    "draggabilly": {
+        "local": "_libs/draggabilly/draggabilly.pkgd.min.js",
+        "cdn": "https://cdn.bootcss.com/draggabilly/2.2.0/draggabilly.pkgd.min.js"
     }
 }
