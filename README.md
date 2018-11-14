@@ -2,8 +2,8 @@
 *Flask大型应用骨架-教育专用*
 
 # 开始使用
-1. `git clone https://github.com/gsw945/flask-bigger.git`
-2. `cd flask-bigger`
+1. `git clone https://github.com/gsw945/flask-bigger4edu.git`
+2. `cd flask-bigger4edu`
 3. `pip install -r requirements.txt`
 4. `python run.py`
 
