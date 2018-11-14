@@ -21,10 +21,40 @@
 {% endblock %}
 {% block body_header %}
     {{ super() }}
+    <!-- Top content -->
+    <div class="top-content">
+
+        <!-- Top menu -->
+        <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">我爬的首页</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="top-navbar-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://github.com/gsw945/flask-bigger4edu#开始使用">开始使用</a></li>
+                        <li><a href="/about">关于</a></li>
+                        <li><a class="social-changelog" href="https://github.com/gsw945/flask-bigger4edu/blob/master/README.md" target="_blank"><span class="fa fa-book"></span> README</a></li>
+                        <li><a class="social-github" href="https://github.com/gsw945/flask-bigger4edu" target="_blank"><span class="fa fa-github"></span> Github</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
 {% endblock %}
 {% block body_main %}
     {{ super() }}
     <div class="container">
+        <div class="row backstretch">
+            <img src="{{ static_url('apps/home/img/bg-01.jpg') }}" />
+        </div>
         <div class="row">
             <div class="col-xs-6 col-xs-offset-3">
                 <h1>Demo Page</h1>
@@ -42,4 +72,10 @@
 {% endblock %}
 {% block body_js %}
     {{ super() }}
+{% endblock %}
+{% block body_after_src %}
+    {{ super() }}
+    <!--网格动态背景开始-->
+    <script type="text/javascript" src="{{ static_url('apps/home/js/bg-effect.js') }}"></script>
+    <!--网格动态背景结束-->
 {% endblock %}
