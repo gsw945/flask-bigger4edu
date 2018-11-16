@@ -14,7 +14,13 @@
     {% block head_css %}
     {% endblock %}
   </head>
-  <body class="app sidebar-mini sidenav-toggled">
+  {% if request.cookies.get('sidenav-toggled') == 'true' %}
+    {% set sidebar_class = 'sidenav-toggled' %}
+  {% else %}
+    {% set sidebar_class = '' %}
+  {% endif %}
+  sidenav-toggled
+  <body class="app sidebar-mini {{ sidebar_class }}">
     <!-- Navbar-->
     {% include "admin/includes/header.html" ignore missing with context %}
     <!-- Sidebar menu-->
