@@ -1,0 +1,19 @@
+{% extends "admin/page-layout.html" %}
+
+{% set title_icon = 'fa-file-text' %}
+{% set body_title = '空白页' %}
+{% set body_describe = '暂时没有内容' %}
+
+{% block app_body %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="tile">
+      <div class="tile-body">Create a beautiful dashboard</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block body_js %}
+  {{ super() }}
+{% endblock %}
