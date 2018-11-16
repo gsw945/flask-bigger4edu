@@ -6,8 +6,17 @@
 	// Toggle Sidebar
 	$('[data-toggle="sidebar"]').click(function(event) {
 		event.preventDefault();
-		$('.app').toggleClass('sidenav-toggled');
+		var $app = $('.app');
+		$app.toggleClass('sidenav-toggled');
+		var value = $app.hasClass('sidenav-toggled');
+		Cookies.set('sidenav-toggled', value, {expires: 30});
 	});
+	$(window).ready(function() {
+		if(Cookies.get('sidenav-toggled') != 'true') {
+			$('.app').removeClass('sidenav-toggled');
+		}
+	});
+	
 
 	// Activate sidebar treeview toggle
 	$("[data-toggle='treeview']").click(function(event) {

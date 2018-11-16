@@ -16,3 +16,7 @@ def view_test_blank():
 @admin_app.route('/auth/login')
 def view_auth_login():
     return render_template(app_name + '/pages/auth-login.html', page_id='view-auth-login')
+
+@admin_app.route('/auth/retrieve')
+def view_auth_retrieve():
+    return render_template(app_name + '/pages/auth-retrieve.html', page_id='view-auth-retrieve')
