@@ -19,6 +19,7 @@ def get_config():
         db_config = json.loads(db_f.read())
 
     return {
+        'proj_root': root,
         'cdn_list': cdn_list,
         'db_config': db_config,
         'template_folder': os.path.join(root, 'frontend', 'templates'),

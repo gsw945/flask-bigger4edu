@@ -3,6 +3,8 @@
 
 web启动入口文件，封装flask-app全局设置
 '''
+import os
+
 from flask import (
     Flask
 )
@@ -22,6 +24,7 @@ from .core.middlewares import PrefixMiddleware
 from .core.template import with_template_filters
 from .utils import ensure_database, get_engine
 from .app_env import get_config
+from .apps.auth.main import record_permission, bind_app, Base, sync_permissions
 
 from .app_map import blueprints
 
@@ -61,6 +64,12 @@ def create_app(config):
     # 数据库类型
     db_type = db_cfg['type']
     db_cfg.pop('type')
+    # 数据库路径
+    if db_type == 'sqlite' and bool(db_cfg.get('database', None)):
+        if not os.path.isabs(db_cfg['database']):
+            if db_cfg['database'] != ':memory:':
+                proj_root = env_cfg.get('proj_root', os.getcwd())
+                db_cfg['database'] = os.path.join(proj_root, db_cfg['database'])
     db_kwargs = config.get('db_kwargs', {})
     engine = get_engine(db_type, user_config=db_cfg, **db_kwargs)
     # Flask-SQLAlchemy配置
@@ -69,8 +78,6 @@ def create_app(config):
     # 关联Flask-SQLAlchemy到当前app
     db.init_app(app)
     app.db = db
-    with app.app_context():
-        db.create_all()
 
     # cdn 配置
     app.config['CDN_LIST'] = env_cfg.get('cdn_list', {})
@@ -98,6 +105,16 @@ def create_app(config):
     for item in blueprints:
         app.register_blueprint(item[1], url_prefix=item[0])
     
+    # 绑定auth
+    bind_app(app)
+
+    # 仅仅用于开发阶段和部署第一次启动初始化时
+    with app.test_request_context():
+        # 创建数据库
+        db.create_all()
+        # 同步数据库中的权限
+        sync_permissions(app, db)
+
     # WSGI代理支持
     app.wsgi_app = ProxyFix(app.wsgi_app, num_proxies=1)
 
