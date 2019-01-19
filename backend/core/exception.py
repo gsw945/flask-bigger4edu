@@ -5,6 +5,7 @@ from functools import wraps
 from flask import (
     request,
     jsonify,
+    make_response,
     render_template_string
 )
 
@@ -52,5 +53,9 @@ def get_http_exception_handler(app):
                 '</html>'
             ])
             resp = render_template_string(tmpl, **err)
-        return resp, exc.code
+        resp =  make_response(resp, exc.code)
+        if hasattr(exc, 'new_url'):
+            if not (app.debug and app.config.get('DEBUG_TB_INTERCEPT_REDIRECTS', False)):
+                resp.headers['Location'] = exc.new_url
+        return resp
     return ret_val
